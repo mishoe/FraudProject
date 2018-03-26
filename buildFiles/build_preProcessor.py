@@ -7,22 +7,25 @@ import numpy as np
 #import
 data=pd.read_csv('Data/train_sample.csv')
 
+data['ip_feature']=[1 if data.loc[i,'ip']>120000 else 0 for i in range(data.shape[0])]
+
 data['app']=data['app'].apply(str)
 data['device']=data['device'].apply(str)
 data['os']=data['os'].apply(str)
 data['channel']=data['channel'].apply(str)
 
 # set up the parameters
-col_dict = {'cat_cols':['app','device','os','channel']}
+col_dict = {'cat_cols':['app','device','os','channel'],
+            'zero_imputer_cols':['ip_feature']}
 
 
 # save the pickled data
-file = 'data/raw_neighborhood_data.p'
+file = 'data/raw_data.p'
 pickle.dump(data, open(file, 'wb'))
 
 
 # load the pickled data
-data = pd.read_pickle('data/raw_neighborhood_data.p')
+data = pd.read_pickle('data/raw_data.p')
 
 
 

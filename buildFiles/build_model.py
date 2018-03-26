@@ -12,7 +12,7 @@ gc.collect()
 features = xgb.DMatrix('data/xgb.features.data')
 
 # load transform
-with open( 'data/text_cat_transformer.p', 'rb') as f:
+with open( 'data/transformer.p', 'rb') as f:
     trans = pickle.load(f)
 
 # load raw data
@@ -61,6 +61,9 @@ model = xgb.train(
     early_stopping_rounds=100,
     maximize=True,
 )
+
+
+test_preds=model.predict(test)
 
 
 # grid search parameters regularization
